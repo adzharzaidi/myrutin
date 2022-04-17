@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myrutin/model/project.dart';
+import 'package:myrutin/screen/project_details.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -35,43 +36,49 @@ class Projects extends StatelessWidget {
   }
 
   Widget _buildProject(BuildContext context, Project project) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.all(25),
-      decoration: BoxDecoration(
-        color: COLOR_WHITE,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            child: Icon(project.iconData, color: project.iconColor, size: 35),
-          ),
-          SizedBox(
-            height: 30,
-            width: 15,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                project.title!,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  _buildProjectStatus(project.btnColor!, project.iconColor!,
-                      '${project.left} tasks left!'),
-                  SizedBox(width: 5),
-                  _buildProjectStatus(COLOR_LIGHTBLUE, project.iconColor!,
-                      '${project.done} tasks done!')
-                ],
-              )
-            ],
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ProjectDetails(project)));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.all(25),
+        decoration: BoxDecoration(
+          color: COLOR_WHITE,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Icon(project.iconData, color: project.iconColor, size: 35),
+            ),
+            SizedBox(
+              height: 30,
+              width: 15,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  project.title!,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    _buildProjectStatus(project.btnColor!, project.iconColor!,
+                        '${project.left} tasks left!'),
+                    SizedBox(width: 5),
+                    _buildProjectStatus(COLOR_LIGHTBLUE, project.iconColor!,
+                        '${project.done} tasks done!')
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
