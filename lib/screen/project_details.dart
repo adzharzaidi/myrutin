@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:myrutin/model/project.dart';
+import 'package:myrutin/screen/widgets/projects/project_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
+import 'widgets/projects/project_dialog.dart';
 
-class ProjectDetails extends StatelessWidget {
-  ProjectDetails(Project project);
+class ProjectDetails extends StatefulWidget {
+  ProjectDetails({Key? key}) : super(key: key);
 
   @override
+  State<ProjectDetails> createState() => _ProjectDetailsState();
+}
+
+class _ProjectDetailsState extends State<ProjectDetails> {
+  int selectedIndex = 0;
+  @override
   Widget build(BuildContext context) {
+    final tabs = [
+      ProjectTaskList(),
+      Container(),
+    ];
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: COLOR_LIGHTBLUE,
@@ -15,64 +26,49 @@ class ProjectDetails extends StatelessWidget {
           _buildAppBar(context),
           SliverToBoxAdapter(
             child: Container(
-              height: 600,
+              height: 100,
               decoration: BoxDecoration(
                 color: COLOR_WHITE,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+                  // bottomLeft: Radius.circular(30),
+                  // bottomRight: Radius.circular(30),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNavBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: COLOR_WHITE,
+        selectedItemColor: COLOR_PURPLE,
+        unselectedItemColor: COLOR_GREY.withOpacity(0.5),
+        currentIndex: selectedIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: (index) => setState(() {
+          selectedIndex = index;
+        }),
+        items: [
+          BottomNavigationBarItem(
+              label: 'Todos', icon: Icon(Icons.fact_check, size: 30)),
+          BottomNavigationBarItem(
+              label: 'Completed', icon: Icon(Icons.done, size: 30))
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 0,
         backgroundColor: COLOR_PURPLE,
-        onPressed: (() {}),
+        onPressed: () => showDialog(
+          context: context,
+          builder: (BuildContext context) => new ProjectDialog(),
+        ),
         child: Icon(Icons.add, size: 35),
       ),
     );
-  }
-
-  Widget _buildBottomNavBar() {
-    return Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-            boxShadow: [
-              BoxShadow(
-                  color: COLOR_LIGHTBLUE.withOpacity(0.2),
-                  spreadRadius: 5,
-                  blurRadius: 10)
-            ]),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          child: BottomNavigationBar(
-            backgroundColor: COLOR_WHITE,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedItemColor: COLOR_PURPLE,
-            unselectedItemColor: COLOR_GREY.withOpacity(0.5),
-            items: [
-              BottomNavigationBarItem(
-                  label: 'Home', icon: Icon(Icons.home, size: 30)),
-              BottomNavigationBarItem(
-                  label: 'Calendar', icon: Icon(Icons.calendar_month, size: 30))
-            ],
-          ),
-        ));
   }
 
   Widget _buildAppBar(BuildContext context) {

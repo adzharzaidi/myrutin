@@ -38,8 +38,8 @@ class Projects extends StatelessWidget {
   Widget _buildProject(BuildContext context, Project project) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ProjectDetails(project)));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ProjectDetails()));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 20),

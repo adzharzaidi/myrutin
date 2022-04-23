@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myrutin/screen/widgets/projects.dart';
+import 'package:myrutin/screen/widgets/projects/projects_list.dart';
 import 'package:myrutin/utils/constants.dart';
-import 'widgets/todays_task.dart';
+import 'widgets/today/todays_task.dart';
 
 class LandingPage extends StatelessWidget {
   @override
