@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myrutin/provider/task.dart';
+import 'package:myrutin/provider/project_task_provider.dart';
 import 'package:myrutin/screen/landing_page.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => TaskProvider(),
+        create: (context) => ProjectTaskProvider(),
         child: MaterialApp(
           theme: ThemeData(fontFamily: 'PlusJakartaSans-SemiBold'),
           title: 'myRutin',

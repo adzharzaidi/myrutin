@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
-import 'widgets/projects/project_dialog.dart';
+import 'widgets/projects/add_project_dialog.dart';
+import 'package:myrutin/screen/widgets/projects/project_task_completed.dart';
 
 class ProjectDetails extends StatefulWidget {
   ProjectDetails({Key? key}) : super(key: key);
@@ -16,11 +17,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget build(BuildContext context) {
     final tabs = [
       ProjectTaskList(),
-      Container(),
+      ProjectTaskCompleted(),
     ];
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: COLOR_LIGHTBLUE,
+      backgroundColor: COLOR_WHITE,
       body: CustomScrollView(
         slivers: [
           _buildAppBar(context),
@@ -28,7 +29,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             child: Container(
               height: 100,
               decoration: BoxDecoration(
-                color: COLOR_WHITE,
+                color: COLOR_LIGHTBLUE,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -38,6 +39,12 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               ),
             ),
           ),
+          SliverFillRemaining(
+            child: Container(
+              color: COLOR_LIGHTBLUE,
+              child: tabs[selectedIndex],
+            ),
+          )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -65,6 +72,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         onPressed: () => showDialog(
           context: context,
           builder: (BuildContext context) => new ProjectDialog(),
+          // barrierDismissible: false,
         ),
         child: Icon(Icons.add, size: 35),
       ),
@@ -74,7 +82,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 90,
-      backgroundColor: COLOR_LIGHTBLUE,
+      backgroundColor: COLOR_WHITE,
       leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
         icon: Icon(Icons.arrow_back_ios_new),
@@ -101,7 +109,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                 'You have 3 task left today',
                 style: TextStyle(
                   fontSize: 12,
-                  color: COLOR_WHITE,
+                  color: COLOR_GREY,
                 ),
               )
             ]),

@@ -6,7 +6,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
   final String description;
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
-  final VoidCallback onSavedTask;
+  final VoidCallback onSavedProjectTask;
 
   const ProjectTaskFormWidget(
       {Key? key,
@@ -14,7 +14,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
       this.description = '',
       required this.onChangedTitle,
       required this.onChangedDescription,
-      required this.onSavedTask})
+      required this.onSavedProjectTask})
       : super(key: key);
 
   @override
@@ -59,7 +59,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(COLOR_PURPLE),
           ),
-          onPressed: onSavedTask,
+          onPressed: onSavedProjectTask,
           child: Text('Save'),
         ),
       );
