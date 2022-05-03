@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myrutin/screen/widgets/projects/projects_list.dart';
 import 'package:myrutin/utils/constants.dart';
-import 'widgets/today/todays_task.dart';
+import 'widgets/today/today_task.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class LandingPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TodaysTask(),
+          Today(),
           Divider(
             color: COLOR_PURPLE,
             indent: 20,

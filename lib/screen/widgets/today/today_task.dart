@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:myrutin/screen/todays_task_details.dart';
 
-class TodaysTask extends StatelessWidget {
+class Today extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

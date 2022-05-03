@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:myrutin/utils/constants.dart';
 
-class ProjectTaskFormWidget extends StatelessWidget {
+class TodayTaskFormWidget extends StatelessWidget {
   final String title;
   final String description;
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
-  final VoidCallback onSavedProjectTask;
+  final VoidCallback onSavedTodayTask;
 
-  const ProjectTaskFormWidget(
+  const TodayTaskFormWidget(
       {Key? key,
       this.title = '',
       this.description = '',
       required this.onChangedTitle,
       required this.onChangedDescription,
-      required this.onSavedProjectTask})
+      required this.onSavedTodayTask})
       : super(key: key);
 
   @override
@@ -60,7 +60,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(COLOR_PURPLE),
           ),
-          onPressed: onSavedProjectTask,
+          onPressed: onSavedTodayTask,
           child: Text('Save'),
         ),
       );

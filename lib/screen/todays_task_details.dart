@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:myrutin/screen/widgets/today/add_today_task_dialog.dart';
+import 'package:myrutin/screen/widgets/today/today_task_completed.dart';
+import 'package:myrutin/screen/widgets/today/today_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
 
-class TodayDetails extends StatelessWidget {
+class TodayDetails extends StatefulWidget {
+  TodayDetails({Key? key}) : super(key: key);
+
+  @override
+  State<TodayDetails> createState() => _TodayDetailsState();
+}
+
+class _TodayDetailsState extends State<TodayDetails> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final tabs = [
+      TodayTaskList(),
+      TodayTaskCompleted(),
+    ];
     return Scaffold(
-      backgroundColor: COLOR_LIGHTBLUE,
+      backgroundColor: COLOR_WHITE,
       body: CustomScrollView(
         slivers: [
-          _buildTaskBar(context),
+          _buildAppBar(context),
           SliverToBoxAdapter(
             child: Container(
-              height: 600,
+              height: 100,
               decoration: BoxDecoration(
-                color: COLOR_WHITE,
+                color: COLOR_LIGHTBLUE,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -22,16 +37,51 @@ class TodayDetails extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          SliverFillRemaining(
+            child: Container(
+              color: COLOR_LIGHTBLUE,
+              child: tabs[selectedIndex],
+            ),
           )
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: COLOR_WHITE,
+        selectedItemColor: COLOR_PURPLE,
+        unselectedItemColor: COLOR_GREY.withOpacity(0.5),
+        currentIndex: selectedIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: (index) => setState(() {
+          selectedIndex = index;
+        }),
+        items: [
+          BottomNavigationBarItem(
+              label: 'Todos', icon: Icon(Icons.fact_check, size: 30)),
+          BottomNavigationBarItem(
+              label: 'Completed', icon: Icon(Icons.done, size: 30))
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 0,
+        backgroundColor: COLOR_PURPLE,
+        onPressed: () => showDialog(
+          context: context,
+          builder: (BuildContext context) => new TaskDialog(),
+          // barrierDismissible: false,
+        ),
+        child: Icon(Icons.add, size: 35),
       ),
     );
   }
 
-  Widget _buildTaskBar(BuildContext context) {
+  Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 90,
-      backgroundColor: COLOR_LIGHTBLUE,
+      backgroundColor: COLOR_WHITE,
       leading: IconButton(
         onPressed: () => Navigator.of(context).pop(),
         icon: Icon(Icons.arrow_back_ios_new),
@@ -58,7 +108,7 @@ class TodayDetails extends StatelessWidget {
                 'You have 3 task left today',
                 style: TextStyle(
                   fontSize: 12,
-                  color: COLOR_WHITE,
+                  color: COLOR_GREY,
                 ),
               )
             ]),

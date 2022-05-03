@@ -1,38 +1,54 @@
+import 'package:provider/provider.dart';
+
+import '../../add_project_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:myrutin/model/project.dart';
 import 'package:myrutin/screen/project_details.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:myrutin/provider/project_provider.dart';
 
-class Projects extends StatelessWidget {
-  final projectsList = Project.generateProject();
+class Projects extends StatefulWidget {
+  @override
+  State<Projects> createState() => _ProjectsState();
+}
+
+class _ProjectsState extends State<Projects> {
+  // final projectsList = Project.generateProject();
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ProjectProvider>(context);
+    final project = provider.project;
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: ListView.builder(
-          itemCount: projectsList.length,
+          itemCount: project.length,
           itemBuilder: (BuildContext context, int index) =>
-              projectsList[index].isLast
+              project[index].isLast
                   ? _buildAddProject()
-                  : _buildProject(context, projectsList[index])),
+                  : _buildProject(context, project[index])),
     );
   }
 
   Widget _buildAddProject() {
-    return DottedBorder(
-        padding: EdgeInsets.all(25),
-        borderType: BorderType.RRect,
-        radius: Radius.circular(20),
-        dashPattern: [10, 10],
-        color: COLOR_GREY,
-        strokeWidth: 2,
-        child: Center(
-          child: Text(
-            '+ Add new project',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ));
+    return GestureDetector(
+        onTap: () => showDialog(
+            context: context,
+            builder: (BuildContext context) => new AddProject()),
+        child: DottedBorder(
+            padding: EdgeInsets.all(25),
+            borderType: BorderType.RRect,
+            radius: Radius.circular(20),
+            dashPattern: [10, 10],
+            color: COLOR_GREY,
+            strokeWidth: 2,
+            child: Center(
+              child: Text(
+                '+ Add new project',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            )));
   }
 
   Widget _buildProject(BuildContext context, Project project) {
@@ -52,7 +68,7 @@ class Projects extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: Icon(project.iconData, color: project.iconColor, size: 35),
+              child: Icon(Icons.cases_outlined, color: COLOR_PURPLE, size: 35),
             ),
             SizedBox(
               height: 30,
@@ -68,10 +84,10 @@ class Projects extends StatelessWidget {
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    _buildProjectStatus(project.btnColor!, project.iconColor!,
+                    _buildProjectStatus(COLOR_BLUE, COLOR_PURPLE,
                         '${project.left} tasks left!'),
                     SizedBox(width: 5),
-                    _buildProjectStatus(COLOR_LIGHTBLUE, project.iconColor!,
+                    _buildProjectStatus(COLOR_LIGHTBLUE, COLOR_PURPLE,
                         '${project.done} tasks done!')
                   ],
                 )
@@ -87,7 +103,7 @@ class Projects extends StatelessWidget {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
-            color: bgColor, borderRadius: BorderRadius.circular(20)),
+            color: COLOR_PURPLE, borderRadius: BorderRadius.circular(20)),
         child: Text(text,
             style: TextStyle(
                 color: COLOR_WHITE,

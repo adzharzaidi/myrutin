@@ -36,4 +36,12 @@ class ProjectTaskProvider extends ChangeNotifier {
     projectTask.isDone = !projectTask.isDone;
     return projectTask.isDone;
   }
+
+  void updateProjectTask(
+      ProjectTask projectTask, String title, String description) {
+    projectTask.title = title;
+    projectTask.description = description;
+
+    notifyListeners();
+  }
 }
