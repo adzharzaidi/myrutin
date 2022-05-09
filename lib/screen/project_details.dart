@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myrutin/provider/project_task_provider.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
-import 'widgets/projects/add_project_dialog.dart';
+import 'package:provider/provider.dart';
+import 'package:myrutin/provider/project_provider.dart';
+import 'widgets/projects/add_project_task_dialog.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_completed.dart';
 
 class ProjectDetails extends StatefulWidget {
@@ -13,6 +16,7 @@ class ProjectDetails extends StatefulWidget {
 
 class _ProjectDetailsState extends State<ProjectDetails> {
   int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     final tabs = [
@@ -80,6 +84,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   }
 
   Widget _buildAppBar(BuildContext context) {
+    final provider = Provider.of<ProjectTaskProvider>(context);
+    final projectTask = provider.projectTask;
     return SliverAppBar(
       expandedHeight: 90,
       backgroundColor: COLOR_WHITE,
@@ -106,7 +112,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                       fontWeight: FontWeight.bold, color: COLOR_BLACK)),
               SizedBox(height: 5),
               Text(
-                'You have 3 task left today',
+                'You have ${projectTask.length} task left today',
                 style: TextStyle(
                   fontSize: 12,
                   color: COLOR_GREY,

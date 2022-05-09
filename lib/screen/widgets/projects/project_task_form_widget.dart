@@ -25,7 +25,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
             buildTitle(),
             SizedBox(height: 8),
             buildDescription(),
-            SizedBox(height: 32),
+            SizedBox(height: 10),
             buildButton(),
           ],
         ),
@@ -41,7 +41,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
           return null;
         },
         decoration: InputDecoration(
-          border: UnderlineInputBorder(),
+          border: OutlineInputBorder(),
           labelText: 'Title',
         ),
       );
@@ -50,7 +50,7 @@ class ProjectTaskFormWidget extends StatelessWidget {
         maxLines: 2,
         onChanged: onChangedDescription,
         decoration: InputDecoration(
-          border: UnderlineInputBorder(),
+          border: OutlineInputBorder(),
           labelText: 'Description',
         ),
       );

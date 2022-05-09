@@ -38,6 +38,9 @@ dependencies:
   dotted_border: ^2.0.0+2
   provider: ^6.0.2
   flutter_slidable: ^1.2.0
+  syncfusion_flutter_calendar: ^20.1.52
+  intl: ^0.17.0
+  flutter_local_notifications: ^9.5.2
 
 dev_dependencies:
   flutter_test:

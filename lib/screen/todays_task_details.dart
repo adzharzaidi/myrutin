@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myrutin/provider/today_task_provider.dart';
 import 'package:myrutin/screen/widgets/today/add_today_task_dialog.dart';
 import 'package:myrutin/screen/widgets/today/today_task_completed.dart';
 import 'package:myrutin/screen/widgets/today/today_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class TodayDetails extends StatefulWidget {
   TodayDetails({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class TodayDetails extends StatefulWidget {
 
 class _TodayDetailsState extends State<TodayDetails> {
   int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     final tabs = [
@@ -79,6 +82,8 @@ class _TodayDetailsState extends State<TodayDetails> {
   }
 
   Widget _buildAppBar(BuildContext context) {
+    final provider = Provider.of<TodayTaskProvider>(context);
+    final todaytask = provider.todayTask;
     return SliverAppBar(
       expandedHeight: 90,
       backgroundColor: COLOR_WHITE,
@@ -105,7 +110,7 @@ class _TodayDetailsState extends State<TodayDetails> {
                       fontWeight: FontWeight.bold, color: COLOR_BLACK)),
               SizedBox(height: 5),
               Text(
-                'You have 3 task left today',
+                'You have ${todaytask.length} task left today',
                 style: TextStyle(
                   fontSize: 12,
                   color: COLOR_GREY,

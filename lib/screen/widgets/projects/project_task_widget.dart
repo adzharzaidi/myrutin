@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:myrutin/model/project_task.dart';
-import 'package:myrutin/screen/widgets/projects/add_project_dialog.dart';
+import 'package:myrutin/screen/widgets/projects/add_project_task_dialog.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:myrutin/screen/widgets/projects/edit_project_task.dart';

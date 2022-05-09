@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:myrutin/provider/event_provider.dart';
 import 'package:myrutin/provider/project_provider.dart';
 import 'package:myrutin/provider/project_task_provider.dart';
 import 'package:myrutin/provider/today_task_provider.dart';
-import 'package:myrutin/screen/landing_page.dart';
+import 'package:myrutin/screen/widgets/homepage/landing_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,9 +21,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => ProjectTaskProvider()),
           ChangeNotifierProvider(create: (context) => TodayTaskProvider()),
           ChangeNotifierProvider(create: (context) => ProjectProvider()),
+          ChangeNotifierProvider(create: (context) => EventProvider()),
         ],
-        //create: (context) => ProjectTaskProvider(),
-        // create: (context) => TodayTaskProvider(),
         child: MaterialApp(
           theme: ThemeData(fontFamily: 'PlusJakartaSans-SemiBold'),
           title: 'myRutin',

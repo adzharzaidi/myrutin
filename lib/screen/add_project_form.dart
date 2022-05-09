@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:myrutin/utils/constants.dart';
 
-class TodayTaskFormWidget extends StatelessWidget {
+class ProjectFormWidget extends StatelessWidget {
   final String title;
-  final String description;
   final ValueChanged<String> onChangedTitle;
-  final ValueChanged<String> onChangedDescription;
-  final VoidCallback onSavedTodayTask;
+  final VoidCallback onSavedProject;
 
-  const TodayTaskFormWidget(
+  const ProjectFormWidget(
       {Key? key,
       this.title = '',
-      this.description = '',
       required this.onChangedTitle,
-      required this.onChangedDescription,
-      required this.onSavedTodayTask})
+      required this.onSavedProject})
       : super(key: key);
 
   @override
@@ -23,8 +19,7 @@ class TodayTaskFormWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             buildTitle(),
-            SizedBox(height: 8),
-            buildDescription(),
+            SizedBox(height: 10),
             SizedBox(height: 10),
             buildButton(),
           ],
@@ -45,22 +40,13 @@ class TodayTaskFormWidget extends StatelessWidget {
           labelText: 'Title',
         ),
       );
-  Widget buildDescription() => TextFormField(
-        initialValue: description,
-        maxLines: 2,
-        onChanged: onChangedDescription,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Description',
-        ),
-      );
   Widget buildButton() => SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(COLOR_PURPLE),
           ),
-          onPressed: onSavedTodayTask,
+          onPressed: onSavedProject,
           child: Text('Save'),
         ),
       );

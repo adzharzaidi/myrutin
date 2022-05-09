@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:myrutin/provider/today_task_provider.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:myrutin/screen/todays_task_details.dart';
+import 'package:provider/provider.dart';
 
 class Today extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<TodayTaskProvider>(context);
+    final todaytask = provider.todayTask;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -40,7 +44,7 @@ class Today extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      '3 Tasks left',
+                      '${todaytask.length} Tasks left',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
