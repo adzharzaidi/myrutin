@@ -51,13 +51,13 @@ class Calendar extends StatelessWidget {
           )
         ],
       ),
-      actions: [
-        Icon(
-          Icons.settings,
-          color: COLOR_PURPLE,
-          size: 40,
-        )
-      ],
+      // actions: [
+      //   Icon(
+      //     Icons.settings,
+      //     color: COLOR_PURPLE,
+      //     size: 40,
+      //   )
+      // ],
     );
   }
 }

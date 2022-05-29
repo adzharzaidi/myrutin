@@ -5,14 +5,14 @@ class TodayTaskProvider extends ChangeNotifier {
   List<TodayTask> _todayTask = [
     TodayTask(
       createdTime: DateTime.now(),
-      title: 'test',
+      title: 'Today Task 1',
       id: '1',
     ),
     TodayTask(
       createdTime: DateTime.now(),
-      title: 'test2',
+      title: 'Today Task 2',
       id: '2',
-      description: 'this is a test desc',
+      description: 'Today Task 2 Description',
     ),
   ];
   List<TodayTask> get todayTask =>

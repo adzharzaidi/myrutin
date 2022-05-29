@@ -6,14 +6,14 @@ class ProjectTaskProvider extends ChangeNotifier {
   List<ProjectTask> _projectTask = [
     ProjectTask(
       createdTime: DateTime.now(),
-      title: 'test',
+      title: 'Project Task 1',
       id: '1',
     ),
     ProjectTask(
       createdTime: DateTime.now(),
-      title: 'test2',
+      title: 'Project Task 2',
       id: '2',
-      description: 'this is a test desc',
+      description: 'Project Task 2 Description',
     ),
   ];
   List<ProjectTask> get projectTask =>

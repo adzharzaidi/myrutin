@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myrutin/provider/project_provider.dart';
 import 'package:myrutin/provider/project_task_provider.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:myrutin/provider/project_provider.dart';
+import '../model/project.dart';
 import 'widgets/projects/add_project_task_dialog.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_completed.dart';
 
@@ -86,6 +87,10 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   Widget _buildAppBar(BuildContext context) {
     final provider = Provider.of<ProjectTaskProvider>(context);
     final projectTask = provider.projectTask;
+
+    final providerProj = Provider.of<ProjectProvider>(context);
+    final project = providerProj.project;
+
     return SliverAppBar(
       expandedHeight: 90,
       backgroundColor: COLOR_WHITE,
@@ -107,7 +112,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Project 1',
+              Text('${project.toList()}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: COLOR_BLACK)),
               SizedBox(height: 5),

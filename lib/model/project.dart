@@ -28,5 +28,4 @@ class Project {
     this.done,
     this.left,
   });
-  // this.isLast = false});
 }
