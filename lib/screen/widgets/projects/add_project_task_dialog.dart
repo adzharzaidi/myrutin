@@ -3,9 +3,15 @@ import 'package:myrutin/model/project_task.dart';
 import 'package:myrutin/provider/project_task_provider.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_form_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class ProjectDialog extends StatefulWidget {
-  ProjectDialog({Key? key}) : super(key: key);
+  final String project;
+
+  ProjectDialog({
+    Key? key,
+    required this.project,
+  }) : super(key: key);
 
   @override
   State<ProjectDialog> createState() => _ProjectDialogState();
@@ -47,11 +53,15 @@ class _ProjectDialogState extends State<ProjectDialog> {
     if (!isValid!) {
       return;
     } else {
+      var uuid = Uuid();
+      var v4 = uuid.v4();
+
       final projectTask = ProjectTask(
-        id: DateTime.now().toString(),
+        id: v4,
         createdTime: DateTime.now(),
         title: title,
         description: description,
+        project: widget.project,
       );
       final provider = Provider.of<ProjectTaskProvider>(context, listen: false);
       provider.addProjectTask(projectTask);

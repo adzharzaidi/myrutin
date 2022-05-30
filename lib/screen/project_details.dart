@@ -9,7 +9,12 @@ import 'widgets/projects/add_project_task_dialog.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_completed.dart';
 
 class ProjectDetails extends StatefulWidget {
-  ProjectDetails({Key? key}) : super(key: key);
+  final String project;
+
+  ProjectDetails({
+    Key? key,
+    required this.project,
+  }) : super(key: key);
 
   @override
   State<ProjectDetails> createState() => _ProjectDetailsState();
@@ -21,8 +26,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   @override
   Widget build(BuildContext context) {
     final tabs = [
-      ProjectTaskList(),
-      ProjectTaskCompleted(),
+      ProjectTaskList(project: widget.project),
+      ProjectTaskCompleted(project: widget.project),
     ];
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -76,7 +81,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         backgroundColor: COLOR_PURPLE,
         onPressed: () => showDialog(
           context: context,
-          builder: (BuildContext context) => new ProjectDialog(),
+          builder: (BuildContext context) =>
+              ProjectDialog(project: widget.project),
           // barrierDismissible: false,
         ),
         child: Icon(Icons.add, size: 35),
@@ -90,6 +96,20 @@ class _ProjectDetailsState extends State<ProjectDetails> {
 
     final providerProj = Provider.of<ProjectProvider>(context);
     final project = providerProj.project;
+    var currentProject;
+
+    for (var oneProject in project) {
+      if (oneProject.id == widget.project) {
+        currentProject = oneProject;
+      }
+    }
+
+    var tasks = [];
+    for (var task in projectTask) {
+      if (task.project == widget.project) {
+        tasks.add(task);
+      }
+    }
 
     return SliverAppBar(
       expandedHeight: 90,
@@ -112,12 +132,12 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${project.toList()}',
+              Text('${currentProject.title}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: COLOR_BLACK)),
               SizedBox(height: 5),
               Text(
-                'You have ${projectTask.length} task left today',
+                'You have ${tasks.length} task left today',
                 style: TextStyle(
                   fontSize: 12,
                   color: COLOR_GREY,

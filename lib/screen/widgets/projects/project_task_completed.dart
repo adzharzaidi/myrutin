@@ -5,13 +5,26 @@ import 'package:myrutin/screen/widgets/projects/project_task_completed.dart';
 import '../../../provider/project_task_provider.dart';
 
 class ProjectTaskCompleted extends StatelessWidget {
-  const ProjectTaskCompleted({Key? key}) : super(key: key);
+  final String project;
+
+  const ProjectTaskCompleted({
+    Key? key,
+    required this.project,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProjectTaskProvider>(context);
     final projectTask = provider.ProjectTaskCompleted;
-    return projectTask.isEmpty
+
+    var tasks = [];
+    for (var task in projectTask) {
+      if (task.project == project) {
+        tasks.add(task);
+      }
+    }
+
+    return tasks.isEmpty
         ? Center(
             child: Text(
               'There are no task completed',
@@ -22,9 +35,9 @@ class ProjectTaskCompleted extends StatelessWidget {
             padding: EdgeInsets.all(20),
             physics: BouncingScrollPhysics(),
             separatorBuilder: (context, index) => Container(height: 10),
-            itemCount: projectTask.length,
+            itemCount: tasks.length,
             itemBuilder: (BuildContext context, int index) {
-              final taskProject = projectTask[index];
+              final taskProject = tasks[index];
               return ProjectWidget(projectTask: taskProject);
             },
           );

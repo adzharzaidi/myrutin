@@ -1,3 +1,4 @@
+import 'package:myrutin/provider/project_task_provider.dart';
 import 'package:provider/provider.dart';
 import '../../add_project_dialog.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,21 @@ class Projects extends StatefulWidget {
 
 class _ProjectsState extends State<Projects> {
   // final projectList = Project.generateProject();
+
+  Map taskByProject = {};
   @override
   Widget build(BuildContext context) {
+    final taskProvider = Provider.of<ProjectTaskProvider>(context);
+    final projectTask = taskProvider.projectTaskAll;
+
+    taskByProject = {};
+    for (var task in projectTask) {
+      if (taskByProject[task.project] == null) {
+        taskByProject[task.project] = [];
+      }
+      taskByProject[task.project].add(task);
+    }
+
     final provider = Provider.of<ProjectProvider>(context);
     final project = provider.project;
 
@@ -24,9 +38,6 @@ class _ProjectsState extends State<Projects> {
       child: ListView.builder(
           itemCount: project.length,
           itemBuilder: (BuildContext context, int index) =>
-              // project[index].isLast
-              //     ? _buildAddProject()
-              // :
               _buildProject(context, project[index])),
     );
   }
@@ -54,10 +65,23 @@ class _ProjectsState extends State<Projects> {
   }
 
   Widget _buildProject(BuildContext context, Project project) {
+    Map taskByStatus = {};
+    for (var task in taskByProject[project.id]) {
+      if (taskByStatus[task.isDone] == null) {
+        taskByStatus[task.isDone] = [];
+      }
+      taskByStatus[task.isDone].add(task);
+    }
+
+    var numberOfUncompletedTask = taskByStatus[false]?.length;
+    var numberOfCompletedTask = taskByStatus[true]?.length;
+
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ProjectDetails()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProjectDetails(
+                  project: project.id,
+                )));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 20),
@@ -86,17 +110,17 @@ class _ProjectsState extends State<Projects> {
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    project.left == null
+                    numberOfUncompletedTask == null
                         ? _buildProjectStatus(
                             COLOR_BLUE, COLOR_PURPLE, '0 task left!')
                         : _buildProjectStatus(COLOR_BLUE, COLOR_PURPLE,
-                            '${project.left} tasks left!'),
+                            '$numberOfUncompletedTask tasks left!'),
                     SizedBox(width: 5),
-                    project.done == null
+                    numberOfCompletedTask == null
                         ? _buildProjectStatus(
                             COLOR_LIGHTBLUE, COLOR_PURPLE, 'No tasks done!')
                         : _buildProjectStatus(COLOR_LIGHTBLUE, COLOR_PURPLE,
-                            '${project.done} tasks done!')
+                            '$numberOfCompletedTask tasks done!')
                   ],
                 )
               ],

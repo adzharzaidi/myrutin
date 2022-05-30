@@ -10,6 +10,7 @@ class ProjectTask {
   String id;
   String description;
   bool isDone;
+  String project;
 
   ProjectTask({
     required this.createdTime,
@@ -17,5 +18,6 @@ class ProjectTask {
     this.description = '',
     required this.id,
     this.isDone = false,
+    required this.project,
   });
 }

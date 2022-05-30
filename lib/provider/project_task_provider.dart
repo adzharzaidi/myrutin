@@ -8,16 +8,21 @@ class ProjectTaskProvider extends ChangeNotifier {
       createdTime: DateTime.now(),
       title: 'Project Task 1',
       id: '1',
+      description: '',
+      project: '2',
     ),
     ProjectTask(
       createdTime: DateTime.now(),
       title: 'Project Task 2',
       id: '2',
       description: 'Project Task 2 Description',
+      project: '1',
     ),
   ];
   List<ProjectTask> get projectTask =>
       _projectTask.where((projectTask) => projectTask.isDone == false).toList();
+
+  List<ProjectTask> get projectTaskAll => _projectTask.toList();
 
   List<ProjectTask> get ProjectTaskCompleted =>
       _projectTask.where((projectTask) => projectTask.isDone == true).toList();
