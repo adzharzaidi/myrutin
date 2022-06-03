@@ -8,24 +8,11 @@ class ProjectField {
 class Project {
   String id;
   DateTime createdTime;
-  // IconData? iconData;
   String? title;
-  // Color? bgColor;
-  // Color? iconColor;
-  // Color? btnColor;
-  num? left;
-  num? done;
-  // bool isLast;
 
   Project({
     required this.id,
     required this.createdTime,
-    // this.iconData,
     this.title,
-    // this.bgColor,
-    // this.iconColor,
-    // this.btnColor,
-    this.done,
-    this.left,
   });
 }

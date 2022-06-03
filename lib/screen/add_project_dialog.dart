@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../model/project.dart';
 import '../provider/project_provider.dart';
@@ -45,8 +46,10 @@ class _AddProjectState extends State<AddProject> {
     if (!isValid!) {
       return;
     } else {
+      var uuid = Uuid();
+      var v4 = uuid.v4();
       final project = Project(
-        id: DateTime.now().toString(),
+        id: v4,
         createdTime: DateTime.now(),
         title: title,
       );

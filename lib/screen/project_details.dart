@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myrutin/provider/project_provider.dart';
 import 'package:myrutin/provider/project_task_provider.dart';
+import 'package:myrutin/screen/edit_project_dialog.dart';
 import 'package:myrutin/screen/widgets/projects/project_task_list.dart';
 import 'package:myrutin/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -121,10 +122,17 @@ class _ProjectDetailsState extends State<ProjectDetails> {
         color: COLOR_PURPLE,
       ),
       actions: [
-        Icon(
-          Icons.more_vert,
-          size: 40,
-          color: COLOR_PURPLE,
+        IconButton(
+          onPressed: () => showDialog(
+            context: context,
+            builder: (BuildContext context) =>
+                EditProjectDialog(project: currentProject),
+          ),
+          icon: Icon(
+            Icons.edit,
+            size: 30,
+            color: COLOR_PURPLE,
+          ),
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
@@ -147,4 +155,11 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       ),
     );
   }
+
+  // void editProject(BuildContext context, Project project) =>
+  //     Navigator.of(context).push(
+  //       MaterialPageRoute(
+  //         builder: (context) => EditProjectDialog(project: project),
+  //       ),
+  //     );
 }

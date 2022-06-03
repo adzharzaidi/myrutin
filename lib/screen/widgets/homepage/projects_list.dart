@@ -1,4 +1,5 @@
 import 'package:myrutin/provider/project_task_provider.dart';
+import 'package:myrutin/screen/delete_project_dialog.dart';
 import 'package:provider/provider.dart';
 import '../../add_project_dialog.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:myrutin/provider/project_provider.dart';
 
 class Projects extends StatefulWidget {
+  const Projects({Key? key}) : super(key: key);
+
   @override
   State<Projects> createState() => _ProjectsState();
 }
@@ -66,11 +69,14 @@ class _ProjectsState extends State<Projects> {
 
   Widget _buildProject(BuildContext context, Project project) {
     Map taskByStatus = {};
-    for (var task in taskByProject[project.id]) {
-      if (taskByStatus[task.isDone] == null) {
-        taskByStatus[task.isDone] = [];
+
+    if (taskByProject[project.id] != null) {
+      for (var task in taskByProject[project.id]) {
+        if (taskByStatus[task.isDone] == null) {
+          taskByStatus[task.isDone] = [];
+        }
+        taskByStatus[task.isDone].add(task);
       }
-      taskByStatus[task.isDone].add(task);
     }
 
     var numberOfUncompletedTask = taskByStatus[false]?.length;
@@ -82,6 +88,11 @@ class _ProjectsState extends State<Projects> {
             builder: (context) => ProjectDetails(
                   project: project.id,
                 )));
+      },
+      onLongPress: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => DeleteProject(project: project));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 20),

@@ -24,7 +24,7 @@ class ProjectWidget extends StatelessWidget {
                 onPressed: (context) => showDialog(
                     context: context,
                     builder: (BuildContext context) =>
-                        new EditProjectTaskDialog(projectTask: projectTask)),
+                        EditProjectTaskDialog(projectTask: projectTask)),
                 backgroundColor: COLOR_PURPLE,
                 icon: Icons.edit,
                 foregroundColor: COLOR_WHITE,
